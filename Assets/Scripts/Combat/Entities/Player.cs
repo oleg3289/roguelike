@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Roguelike.Cards;
+using Roguelike.Combat.Status;
 
 namespace Roguelike.Combat.Entities
 {
@@ -11,6 +12,7 @@ namespace Roguelike.Combat.Entities
         private readonly int maxHealth;
         private int currentHealth;
         private int block;
+        private readonly StatusManager statusManager = new();
         private readonly List<CardInstance> deck = new();
         private readonly List<CardInstance> hand = new();
         private readonly List<CardInstance> discardPile = new();
@@ -23,6 +25,7 @@ namespace Roguelike.Combat.Entities
         public int MaxHealth => maxHealth;
         public int Block => block;
         public bool IsDead => currentHealth <= 0;
+        public StatusManager StatusManager => statusManager;
         
         public int CurrentEnergy => currentEnergy;
         public int MaxEnergy => maxEnergy;
@@ -41,6 +44,8 @@ namespace Roguelike.Combat.Entities
         
         public void TakeDamage(int amount)
         {
+            amount = statusManager.ModifyIncomingDamage(amount);
+            
             if (block >= amount)
             {
                 block -= amount;

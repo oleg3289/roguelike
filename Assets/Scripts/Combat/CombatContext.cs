@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Roguelike.Combat.Entities;
 using Roguelike.Combat.Effects;
 using Roguelike.Combat.TurnSystem;
+using Roguelike.Combat.Status;
 
 namespace Roguelike.Combat
 {
@@ -39,7 +40,14 @@ namespace Roguelike.Combat
         {
             player.ResetEnergy();
             player.ResetBlock();
+            player.StatusManager.ApplyStatus(StatusType.Strength, 0); // Initialize
             turnManager.StartCombat();
+            
+            foreach (var enemy in enemies)
+            {
+                enemy.DetermineNextAction(player, turnManager.TurnNumber);
+            }
+            
             OnCombatStart?.Invoke();
         }
         
@@ -47,8 +55,11 @@ namespace Roguelike.Combat
         {
             if (turnManager.CurrentState == TurnState.PlayerTurn)
             {
+                // Process end of turn status effects for player
+                player.StatusManager.ProcessTurnEnd(player, this);
                 player.ResetBlock();
                 turnManager.EndPlayerTurn();
+                
                 // Process enemy turns
                 ProcessEnemyTurns();
             }
@@ -57,22 +68,33 @@ namespace Roguelike.Combat
         private void ProcessEnemyTurns()
         {
             turnManager.StartEnemyTurn();
+            
             foreach (var enemy in enemies)
             {
                 if (!enemy.IsDead)
                 {
+                    enemy.ExecuteAction(player);
+                    enemy.StatusManager.ProcessTurnEnd(enemy, this);
                     enemy.ResetBlock();
-                    ExecuteEnemyAction(enemy);
                 }
             }
-            turnManager.EndEnemyTurn();
+            
+            // Process start of turn for player
+            player.StatusManager.ProcessTurnStart(player, this);
             player.ResetEnergy();
-        }
-        
-        private void ExecuteEnemyAction(Enemy enemy)
-        {
-            // Basic attack for MVP - AI will be expanded later
-            player.TakeDamage(5);
+            
+            // Determine next enemy actions
+            turnManager.EndEnemyTurn();
+            
+            foreach (var enemy in enemies)
+            {
+                if (!enemy.IsDead)
+                {
+                    enemy.DetermineNextAction(player, turnManager.TurnNumber);
+                }
+            }
+            
+            CheckCombatEnd();
         }
         
         public void CheckCombatEnd()

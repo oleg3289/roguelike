@@ -1,4 +1,5 @@
 using Roguelike.Combat.Effects;
+using Roguelike.Combat.Status;
 
 namespace Roguelike.Combat.Entities
 {
@@ -8,6 +9,7 @@ namespace Roguelike.Combat.Entities
     /// </summary>
     public interface IEntity : ITargetable
     {
+        StatusManager StatusManager { get; }
         void ResetBlock();
         void Die();
     }
