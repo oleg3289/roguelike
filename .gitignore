@@ -20,4 +20,4 @@ Thumbs.db
 # IDE
 .idea/
 *.swp
-*.swo
+*.swoTestResults/
