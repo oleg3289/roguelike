@@ -17,7 +17,7 @@ namespace Roguelike.UI
         private void Awake()
         {
             // Ensure CombatUIController exists in scene
-            var existingController = FindObjectOfType<CombatUIController>();
+            var existingController = FindFirstObjectByType<CombatUIController>();
             if (existingController == null)
             {
                 Debug.Log("[CombatSceneSetup] Creating Combat object...");
@@ -58,8 +58,8 @@ namespace Roguelike.UI
             UnityEditor.Selection.activeGameObject = go;
             
             // Auto-assign cards
-            var strike = AssetDatabase.LoadAssetAtPath<CardData>("Assets/Resources/Data/Cards/Strike.asset");
-            var defend = AssetDatabase.LoadAssetAtPath<CardData>("Assets/Resources/Data/Cards/Defend.asset");
+            var strike = UnityEditor.AssetDatabase.LoadAssetAtPath<CardData>("Assets/Resources/Data/Cards/Strike.asset");
+            var defend = UnityEditor.AssetDatabase.LoadAssetAtPath<CardData>("Assets/Resources/Data/Cards/Defend.asset");
             
             if (strike != null && defend != null)
             {

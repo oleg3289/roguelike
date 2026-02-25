@@ -46,7 +46,7 @@ namespace Roguelike.Tests.PlayMode.UI
             if (canvasGO != null)
                 Object.DestroyImmediate(canvasGO);
             
-            var eventSystem = UnityEngine.Object.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+            var eventSystem = UnityEngine.Object.FindFirstObjectByType<UnityEngine.EventSystems.EventSystem>();
             if (eventSystem != null)
                 Object.DestroyImmediate(eventSystem.gameObject);
         }

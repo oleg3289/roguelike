@@ -59,7 +59,7 @@ namespace Roguelike.UI
         private void CreateUI()
         {
             // EventSystem
-            if (FindObjectOfType<EventSystem>() == null)
+            if (FindFirstObjectByType<EventSystem>() == null)
             {
                 var esGO = new GameObject("EventSystem");
                 esGO.AddComponent<EventSystem>();
