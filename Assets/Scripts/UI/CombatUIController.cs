@@ -36,18 +36,19 @@ namespace Roguelike.UI
         private void Awake()
         {
             font = Font.CreateDynamicFontFromOSFont("Arial", 16);
-        }
-        
-        private void Start()
-        {
+            
+            // Load card data from Resources if not assigned in Inspector
             if (strikeCard == null)
                 strikeCard = Resources.Load<CardData>("Data/Cards/Strike");
             if (defendCard == null)
                 defendCard = Resources.Load<CardData>("Data/Cards/Defend");
-            
+        }
+        
+        private void Start()
+        {
             if (strikeCard == null || defendCard == null)
             {
-                Debug.LogError("Could not load cards!");
+                Debug.LogError("Could not load cards! Make sure Resources/Data/Cards/Strike and Defend assets exist.");
                 return;
             }
             
