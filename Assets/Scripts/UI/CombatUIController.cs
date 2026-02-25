@@ -90,15 +90,15 @@ namespace Roguelike.UI
             var bgImg = bgGO.AddComponent<Image>();
             bgImg.color = new Color(0.12f, 0.12f, 0.18f);
             
-            // ========== ENEMY PANEL (TOP-LEFT) ==========
+            // ========== ENEMY PANEL (TOP-CENTER) ==========
             // Panel container
             var enemyPanel = new GameObject("EnemyPanel");
             enemyPanel.transform.SetParent(canvasGO.transform);
             var epRect = enemyPanel.AddComponent<RectTransform>();
-            epRect.anchorMin = new Vector2(0, 1);
-            epRect.anchorMax = new Vector2(0, 1);
-            epRect.pivot = new Vector2(0, 1);
-            epRect.anchoredPosition = new Vector2(20, -20);
+            epRect.anchorMin = new Vector2(0.5f, 1);
+            epRect.anchorMax = new Vector2(0.5f, 1);
+            epRect.pivot = new Vector2(0.5f, 1);
+            epRect.anchoredPosition = new Vector2(0, -20);
             epRect.sizeDelta = new Vector2(280, 120);
             var epImg = enemyPanel.AddComponent<Image>();
             epImg.color = new Color(0.18f, 0.22f, 0.28f);

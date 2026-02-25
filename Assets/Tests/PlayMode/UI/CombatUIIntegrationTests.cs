@@ -235,5 +235,62 @@ namespace Roguelike.Tests.PlayMode.UI
                 Assert.Fail($"Text elements not contained in parents: {string.Join(", ", details)}");
             }
         }
+        
+        [Test]
+        public void EnemyPanel_ShouldBeAnchoredAtTopCenter()
+        {
+            Assert.IsNotNull(createdCanvas, "Canvas should be created by CreateUI");
+            var enemyPanel = createdCanvas.transform.Find("EnemyPanel");
+            Assert.IsNotNull(enemyPanel, "EnemyPanel should exist");
+            
+            var rect = enemyPanel.GetComponent<RectTransform>();
+            
+            // Should be anchored at top-center (0.5, 1)
+            Assert.AreEqual(0.5f, rect.anchorMin.x, 0.01f, "EnemyPanel anchorMin.x should be 0.5 (horizontal center)");
+            Assert.AreEqual(1f, rect.anchorMin.y, 0.01f, "EnemyPanel anchorMin.y should be 1 (top)");
+            Assert.AreEqual(0.5f, rect.anchorMax.x, 0.01f, "EnemyPanel anchorMax.x should be 0.5 (horizontal center)");
+            Assert.AreEqual(1f, rect.anchorMax.y, 0.01f, "EnemyPanel anchorMax.y should be 1 (top)");
+        }
+        
+        [Test]
+        public void EnemyPanel_ShouldHaveTopCenterPivot()
+        {
+            Assert.IsNotNull(createdCanvas, "Canvas should be created by CreateUI");
+            var enemyPanel = createdCanvas.transform.Find("EnemyPanel");
+            Assert.IsNotNull(enemyPanel, "EnemyPanel should exist");
+            
+            var rect = enemyPanel.GetComponent<RectTransform>();
+            
+            // Pivot should be at top-center (0.5, 1)
+            Assert.AreEqual(0.5f, rect.pivot.x, 0.01f, "EnemyPanel pivot.x should be 0.5 (horizontal center)");
+            Assert.AreEqual(1f, rect.pivot.y, 0.01f, "EnemyPanel pivot.y should be 1 (top)");
+        }
+        
+        [Test]
+        public void EnemyPanel_ShouldBeCenteredHorizontally()
+        {
+            Assert.IsNotNull(createdCanvas, "Canvas should be created by CreateUI");
+            var enemyPanel = createdCanvas.transform.Find("EnemyPanel");
+            Assert.IsNotNull(enemyPanel, "EnemyPanel should exist");
+            
+            var rect = enemyPanel.GetComponent<RectTransform>();
+            
+            // anchoredPosition.x should be 0 (centered)
+            Assert.AreEqual(0f, rect.anchoredPosition.x, 1f, "EnemyPanel should be centered horizontally (anchoredPosition.x near 0)");
+        }
+        
+        [Test]
+        public void EnemyPanel_ShouldBeNearTopEdge()
+        {
+            Assert.IsNotNull(createdCanvas, "Canvas should be created by CreateUI");
+            var enemyPanel = createdCanvas.transform.Find("EnemyPanel");
+            Assert.IsNotNull(enemyPanel, "EnemyPanel should exist");
+            
+            var rect = enemyPanel.GetComponent<RectTransform>();
+            
+            // anchoredPosition.y should be negative small value (near top, e.g., -20)
+            Assert.GreaterOrEqual(rect.anchoredPosition.y, -50f, "EnemyPanel should be near top edge (y >= -50)");
+            Assert.LessOrEqual(rect.anchoredPosition.y, 0f, "EnemyPanel should be below top edge (y <= 0)");
+        }
     }
 }
