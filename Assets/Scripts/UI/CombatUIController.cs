@@ -88,7 +88,7 @@ namespace Roguelike.UI
             bgRect.anchoredPosition = Vector2.zero;
             bgRect.sizeDelta = Vector2.zero;
             var bgImg = bgGO.AddComponent<Image>();
-            bgImg.color = new Color(0.12f, 0.12f, 0.18f);
+            bgImg.color = new Color(0.15f, 0.27f, 0.33f); // Reference: dark teal background
             
             // ========== ENEMY PANEL (TOP-CENTER) ==========
             // Panel container
@@ -101,7 +101,7 @@ namespace Roguelike.UI
             epRect.anchoredPosition = new Vector2(0, -20);
             epRect.sizeDelta = new Vector2(280, 120);
             var epImg = enemyPanel.AddComponent<Image>();
-            epImg.color = new Color(0.18f, 0.22f, 0.28f);
+            epImg.color = new Color(0.16f, 0.62f, 0.56f); // Reference: teal
             
             // Enemy name label
             CreateText(enemyPanel.transform, new Vector2(0.5f, 1), new Vector2(280, 35), "SLIME", 20, Color.white, TextAnchor.MiddleCenter, new Vector2(0, -20));
@@ -160,7 +160,7 @@ namespace Roguelike.UI
             ppRect.anchoredPosition = new Vector2(20, 20);
             ppRect.sizeDelta = new Vector2(280, 120);
             var ppImg = playerPanel.AddComponent<Image>();
-            ppImg.color = new Color(0.15f, 0.25f, 0.18f);
+            ppImg.color = new Color(0.16f, 0.62f, 0.56f); // Reference: teal
             
             // Player name
             CreateText(playerPanel.transform, new Vector2(0.5f, 1), new Vector2(280, 30), "HERO", 20, Color.white, TextAnchor.MiddleCenter, new Vector2(0, -15));
@@ -184,7 +184,7 @@ namespace Roguelike.UI
             lpRect.anchoredPosition = new Vector2(20, 0);
             lpRect.sizeDelta = new Vector2(220, 200);
             var lpImg = logPanel.AddComponent<Image>();
-            lpImg.color = new Color(0, 0, 0, 0.5f);
+            lpImg.color = new Color(0.13f, 0.49f, 0.45f, 0.8f); // Reference: semi-transparent teal
             
             var logTxtGO = new GameObject("Txt");
             logTxtGO.transform.SetParent(logPanel.transform);
@@ -209,7 +209,7 @@ namespace Roguelike.UI
             btnRect.anchoredPosition = new Vector2(-25, 0);
             btnRect.sizeDelta = new Vector2(140, 50);
             var btnImg = btnGO.AddComponent<Image>();
-            btnImg.color = new Color(0.6f, 0.25f, 0.2f);
+            btnImg.color = new Color(0.91f, 0.44f, 0.32f); // Reference: coral/orange
             endTurnButton = btnGO.AddComponent<Button>();
             
             var btnTxtGO = new GameObject("Txt");
