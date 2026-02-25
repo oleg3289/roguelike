@@ -8,6 +8,7 @@ using Roguelike.Combat;
 using Roguelike.Combat.Entities;
 using Roguelike.Combat.AI;
 using Roguelike.Combat.Effects;
+using Roguelike.Combat.TurnSystem;
 
 namespace Roguelike.UI
 {
@@ -431,19 +432,31 @@ namespace Roguelike.UI
         private void OnEndTurnClicked()
         {
             Log("End turn");
+            
+            // End player turn phase
+            combatContext.TurnManager.EndPlayerTurn();
+            combatContext.TurnManager.StartEnemyTurn();
+            
             player.ResetBlock();
             enemy.DetermineNextAction(player, combatContext.TurnManager.TurnNumber);
             ExecuteEnemyTurn();
-            player.ResetEnergy();
-            DrawCards(Mathf.Min(2, player.Deck.Count));
-            UpdateUI();
-            RenderHand();
             
             if (player.IsDead)
             {
                 Log("DEFEAT!");
                 endTurnButton.interactable = false;
+                combatContext.TurnManager.EndCombat();
+                UpdateUI();
+                return;
             }
+            
+            // End enemy turn - this increments turn number!
+            combatContext.TurnManager.EndEnemyTurn();
+            
+            player.ResetEnergy();
+            DrawCards(Mathf.Min(2, player.Deck.Count));
+            UpdateUI();
+            RenderHand();
         }
         
         private void ExecuteEnemyTurn()
